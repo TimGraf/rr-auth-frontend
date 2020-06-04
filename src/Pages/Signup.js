@@ -13,7 +13,7 @@ export const Signup = props => {
     });
 
     // Controled form functions
-    const handleChange = e => setSignupForm({ ...signupForm, [e.target.name]: e.target.name });
+    const handleChange = e => setSignupForm({ ...signupForm, [e.target.name]: e.target.value });
 
     const handleSubmit = e => {
         e.preventDefault();
@@ -30,7 +30,7 @@ export const Signup = props => {
             <h1>Signup Page</h1>
             <input
                 type="text"
-                name="usernam"
+                name="username"
                 value={username}
                 onChange={handleChange}
                 placeholder="Username"

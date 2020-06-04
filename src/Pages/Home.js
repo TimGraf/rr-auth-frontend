@@ -9,7 +9,9 @@ export const Home = () => {
         <h1>No one is logged in.</h1>
     );
 
-    return <div>{text}</div>;
+    return (
+        <div>{text}</div>
+    );
 };
 
 export default Home;
