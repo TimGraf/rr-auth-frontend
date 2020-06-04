@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import userActions from '../redux/actions';
 
-export const LoginPage = props => {
+export const Login = props => {
     // Initializing dispatch
     const dispatch = useDispatch();
     // Setting up local state using the useState hook
@@ -14,13 +14,14 @@ export const LoginPage = props => {
     // Controled form functions
     const handleSubmit = e => {
         e.preventDefault();
-        dispatch(userActions.loginUserToDB(loginForm));
-        props.history.push('/');
+        const { history } = props;
+        dispatch(userActions.loginUser(loginForm));
+        history.push('/');
     };
 
     const handleChange = e => setLoginForm({ ...loginForm, [e.target.name]: e.target.value });
 
-    // Destructuring keys from our local state to use in the from
+    // Destructuring keys from our local state to use in the form
     const { username, password } = loginForm;
 
     // Component code
@@ -44,3 +45,5 @@ export const LoginPage = props => {
         </form>
     );
 };
+
+export default Login;

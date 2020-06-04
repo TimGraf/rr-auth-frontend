@@ -17,7 +17,7 @@ const clearUserAction = () => ({
 
 // Fetch
 
-const newUserToDB = userObj => dispatch => {
+const newUser = userObj => dispatch => {
     const config = {
         method: 'POST',
         headers: {
@@ -29,11 +29,11 @@ const newUserToDB = userObj => dispatch => {
         .then(r => r.json())
         .then(data => {
             dispatch(setUserAction(data.user));
-            localStorage.setItem('token')
+            localStorage.setItem('token', data.token);
         });
 };
 
-const deleteUserFromDB = userId => dispatch => {
+const deleteUser = userId => dispatch => {
     const config = {
         method: 'DELETE'
     };
@@ -44,7 +44,7 @@ const deleteUserFromDB = userId => dispatch => {
         });
 };
 
-const loginUserToDB = userCredentials => dispatch => {
+const loginUser = userCredentials => dispatch => {
     const config = {
         method: 'POST',
         headers: {
@@ -52,10 +52,24 @@ const loginUserToDB = userCredentials => dispatch => {
         },
         body: JSON.stringify(userCredentials)
     };
+    fetch(LOGIN_URL, config)
+        .then(r => r.json())
+        .then(data => {
+            dispatch(setUserAction(data.user));
+        });
+};
+
+const persistUser = () => dispatch => {
+    const config = {
+        method: 'GET',
+        headers: {
+            'Authorization': 'bearer' + localStorage.token
+        }
+    };
     fetch(PERSIST_URL, config)
         .then(r => r.json())
-        .then(userInstance => {
-            dispatch(setUserAction(userInstance));
+        .then(user => {
+            dispatch(setUserAction(user));
         });
 };
 
@@ -65,8 +79,9 @@ const logoutUser = () => dispatch => {
 };
 
 export default {
-    newUserToDB,
-    deleteUserFromDB,
-    loginUserToDB,
+    newUser,
+    deleteUser,
+    loginUser,
+    persistUser,
     logoutUser
 };

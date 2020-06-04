@@ -5,7 +5,7 @@ import Routes from './Routes';
 import Nav from './Components/Nav';
 import { Router } from 'react-router-dom';
 
-function App() {
+const App = () => {
   return (
     <Router>
       <Nav />
